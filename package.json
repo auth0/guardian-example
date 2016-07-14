@@ -1,0 +1,19 @@
+{
+  "name": "guardian-advanced-example",
+  "version": "0.0.0",
+  "description": "Guardian advanced example",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/auth0/guardian-example.git"
+  },
+  "author": "Auth0",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/auth0/guardian-example/issues"
+  },
+  "homepage": "https://github.com/auth0/guardian-example#readme"
+}
