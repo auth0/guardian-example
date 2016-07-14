@@ -1,0 +1,23 @@
+.enablement-label {
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.enrollment-text {
+  margin-left: 10px;
+}
+
+.enablement-label i {
+  margin-left: 5px;
+}
+
+.enabled .enablement-label {
+  background: #5cb85c;
+}
+
+.disabled .enablement-label {
+  background: #d9534f;
+}
