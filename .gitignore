@@ -38,3 +38,9 @@ jspm_packages
 
 # VSCode
 .vscode
+
+# Mac DS Store
+.DS_Store
+
+# Development config
+config/config.development.js
