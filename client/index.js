@@ -16,8 +16,8 @@ import { setup } from './services/lock'
 const store = configure()
 const history = syncHistoryWithStore(browserHistory, store)
 
-const domain = 'fortune.au.auth0.com'
-const clientId = 'JvUmapHeheM4cHkH4gGm4Kp6QrsPkNBI'
+const domain = window.auth0Config.domain
+const clientId = window.auth0Config.clientId
 
 setup({
   clientId: clientId,

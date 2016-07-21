@@ -14,6 +14,7 @@ const ensureApi2Token = require('./lib/middlewares/ensure_api2_token')
 const loadUser = require('./lib/middlewares/load_user')
 const loadUserEnrollments = require('./lib/middlewares/load_user_enrollments')
 const session = require('express-session')
+const fs = require('fs')
 
 const mfaRoutes = require('./api/mfa_routes')
 const stepUpRoutes = require('./api/step_up_routes')
@@ -21,6 +22,9 @@ const stepUpRoutes = require('./api/step_up_routes')
 const port = env['PORT'] || 3000
 
 var idTokenCheck = require('./lib/id_token_check')
+const template = fs.readFileSync(path.join(__dirname, 'public/index.html'), 'utf8')
+  .replace('{AUTH0_DOMAIN}', env['AUTH0_DOMAIN'].replace('{tenant}', env['AUTH0_TENANT']))
+  .replace('{AUTH0_CLIENT}', env['AUTH0_CLIENT'])
 
 if (env.isDevelopment) {
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
@@ -86,7 +90,8 @@ app.get('/api/users/me', idTokenCheck, loadUser, loadUserEnrollments(), function
 })
 
 app.get('*', function (req, res) {
-  res.sendFile(path.join(__dirname, 'public/index.html'))
+  //res.header("Content-Type", "text/html")
+  res.status(200).send(template)
 })
 
 app.use(function (err, req, res, next) {
