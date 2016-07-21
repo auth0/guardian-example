@@ -40,10 +40,10 @@ export default class Enrollment extends Component {
         <SectionLine title='Delivery options'>
           <DeliveryOptions enrollments={this.props.enrollments || []} enabled={this.props.enabled} />
         </SectionLine>
-        <hr className={style.separation} />
-        <SectionLine title='Recovery code'>
-          <RecoveryCode enrollment={mainEnrollment} enabled={this.props.enabled} />
-        </SectionLine>
+        // <hr className={style.separation} />
+        // <SectionLine title='Recovery code'>
+        //   <RecoveryCode enrollment={mainEnrollment} enabled={this.props.enabled} />
+        // </SectionLine>
       </div>
     </div>)
   }
