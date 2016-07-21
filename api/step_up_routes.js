@@ -20,6 +20,7 @@ module.exports = function () {
     const nonce = randomstring.generate(100)
     const transactionId = randomstring.generate(10)
 
+    req.session = req.session || {};
     req.session[transactionId] = {
       nonce: nonce,
       requested_scope: req.body.requested_scope
@@ -65,6 +66,10 @@ module.exports = function () {
 }
 
 function checkStepUpIdToken (req, res, next) {
+  if (!req.stepup_idtoken) {
+    return next(Boom.unauthorized())
+  }
+
   if (req.stepup_idtoken.sub !== req.user.sub) {
     return next(Boom.unauthorized())
   }

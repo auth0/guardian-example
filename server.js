@@ -3,17 +3,13 @@
 const express = require('express')
 const app = express()
 const env = require('./lib/env')
-const webpack = require('webpack')
-const webpackMiddleware = require('webpack-dev-middleware')
-const webpackHotMiddleware = require('webpack-hot-middleware')
-const config = require('./webpack.config.js')
 const path = require('path')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const ensureApi2Token = require('./lib/middlewares/ensure_api2_token')
 const loadUser = require('./lib/middlewares/load_user')
 const loadUserEnrollments = require('./lib/middlewares/load_user_enrollments')
-const session = require('express-session')
+const session = require('cookie-session')
 const fs = require('fs')
 
 const mfaRoutes = require('./api/mfa_routes')
@@ -27,6 +23,11 @@ const template = fs.readFileSync(path.join(__dirname, 'public/index.html'), 'utf
   .replace('{AUTH0_CLIENT}', env['AUTH0_CLIENT'])
 
 if (env.isDevelopment) {
+  const config = require('./webpack.config.js')
+  const webpack = require('webpack')
+  const webpackMiddleware = require('webpack-dev-middleware')
+  const webpackHotMiddleware = require('webpack-hot-middleware')
+
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
 
   const compiler = webpack(config)
@@ -53,11 +54,13 @@ app.use(bodyParser.json())
 
 app.use(express.static(path.join(__dirname, '/public')))
 
+app.set('trust proxy', 1)
+
 app.use(session({
+  name: 'session',
   secret: env['COOKIE_SECRET'],
-  cookie: { secure: !env.isDevelopment, httpOnly: !env.isDevelopment },
-  saveUninitialized: true,
-  resave: false
+  secure: !env.isDevelopment,
+  httpOnly: !env.isDevelopment
 }))
 
 app.use(function (req, res, next) {

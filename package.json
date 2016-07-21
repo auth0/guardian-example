@@ -55,11 +55,12 @@
     "body-parser": "^1.15.2",
     "boom": "^3.2.2",
     "cookie-parser": "^1.4.3",
+    "cookie-session": "^2.0.0-alpha.1",
     "express": "^4.14.0",
     "express-jwt": "^3.4.0",
     "express-jwt-permissions": "^0.2.2",
     "express-session": "^1.14.0",
-    "guardian-management-client": "github:auth0/guardian-management-client",
+    "guardian-management-client": "file:./deps/guardian-management-client-1.0.0.tgz",
     "jsonwebtoken": "^7.1.6",
     "jwt-decode": "^2.0.1",
     "moment": "^2.14.1",
@@ -76,6 +77,9 @@
   },
   "standard": {
     "parser": "babel-eslint",
-    "globals": [ "confirm", "Auth0Lock" ]
+    "globals": [
+      "confirm",
+      "Auth0Lock"
+    ]
   }
 }

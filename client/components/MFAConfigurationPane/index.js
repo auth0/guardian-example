@@ -15,6 +15,10 @@ export default class Enrollment extends Component {
   render () {
     const mainEnrollment = (this.props.enrollments || [])[0]
 
+    // <hr className={style.separation} />
+    // <SectionLine title='Recovery code'>
+    //   <RecoveryCode enrollment={mainEnrollment} enabled={this.props.enabled} />
+    // </SectionLine>
     return (<div>
       <div className='row'>
         <div className='col-md-12'>
@@ -40,10 +44,6 @@ export default class Enrollment extends Component {
         <SectionLine title='Delivery options'>
           <DeliveryOptions enrollments={this.props.enrollments || []} enabled={this.props.enabled} />
         </SectionLine>
-        // <hr className={style.separation} />
-        // <SectionLine title='Recovery code'>
-        //   <RecoveryCode enrollment={mainEnrollment} enabled={this.props.enabled} />
-        // </SectionLine>
       </div>
     </div>)
   }
