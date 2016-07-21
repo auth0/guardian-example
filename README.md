@@ -14,6 +14,26 @@ COOKIE_SECRET: 'Secret to sign generated cookies DON\'T NOT COMMIT TO GIT REPO',
 MY_API_SECRET: 'Secret to sign your own tokens DON\'T NOT COMMIT TO GIT REPO'
 ```
 
+## Multifactor rule
+Activate Guardian an use the following multifactor rule
+
+```javascript
+function (user, context, callback) {
+  if (user.user_metadata && user.user_metadata.disable_mfa){
+    return callback(null, user, context);
+  }
+
+  context.multifactor = {
+    provider: 'guardian', //required
+    ignoreCookie: true, // optional. Force Auth0 MFA everytime this rule runs. Defaults to false. if accepted by users the cookie lasts for 30 days (this cannot be changed)
+  };
+
+  user.nonce = context.request.query.nonce || context.request.body.nonce;
+
+  return callback(null, user, context);
+}
+```
+
 ## User profile
 ![User profile](https://github.com/auth0/guardian-example/raw/master/readme.d/user.png)
 
