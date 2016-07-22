@@ -28768,7 +28768,7 @@ webpackJsonp([1],[
 	        if (_this2.props.stepupScopes.indexOf(requestedScope) < 0) {
 	          _reactRouter.browserHistory.push('/step-up/' + encodeURIComponent(requestedScope));
 	        }
-	      }, 500);
+	      }, 0);
 	    }
 	  }, {
 	    key: 'handleEnableMFA',

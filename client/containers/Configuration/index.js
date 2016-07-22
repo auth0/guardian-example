@@ -15,7 +15,7 @@ class Configuration extends Component {
       if (this.props.stepupScopes.indexOf(requestedScope) < 0) {
         browserHistory.push(`/step-up/${encodeURIComponent(requestedScope)}`)
       }
-    }, 500)
+    }, 0)
   }
 
   handleEnableMFA () {
