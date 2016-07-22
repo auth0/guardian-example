@@ -5,8 +5,18 @@ import { connect } from 'react-redux'
 import * as CurrentUserActions from '../../actions/current_user'
 import MFAConfigurationPane from '../../components/MFAConfigurationPane'
 import App from '../App'
+import { browserHistory } from 'react-router'
 
 class Configuration extends Component {
+  componentDidMount() {
+    const requestedScope = 'update:mfa_settings';
+
+    setTimeout(() => {
+      if (this.props.stepupScopes.indexOf(requestedScope) < 0) {
+        browserHistory.push(`/step-up/${encodeURIComponent(requestedScope)}`)
+      }
+    }, 500)
+  }
 
   handleEnableMFA () {
     this.props.userActions.changeMFAStatus(false)
@@ -41,7 +51,8 @@ class Configuration extends Component {
 function mapStateToProps (state) {
   return {
     disableMFA: state.current_user.user_metadata.disable_mfa,
-    enrollments: state.current_user.guardian && state.current_user.guardian.enrollments || []
+    enrollments: state.current_user.guardian && state.current_user.guardian.enrollments || [],
+    stepupScopes: state.transaction.stepup.scopes || []
   }
 }
 

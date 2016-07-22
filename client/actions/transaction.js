@@ -31,23 +31,25 @@ export function delTransactionState() {
 }
 
 export function acceptLogin ({ idToken }) {
-  return {
-    [API]: {
-      endpoint: 'login',
-      method: 'POST',
-      types: {
-        start: { type: 'start login' },
-        success: 'complete login'
-      },
-      data: { idtoken: idToken },
-      after: function (err) {
-        if (err) {
-          return
-        }
+  return function (dispatch) {
+    return dispatch({
+      [API]: {
+        endpoint: 'login',
+        method: 'POST',
+        types: {
+          start: { type: 'start login' },
+          success: 'complete login'
+        },
+        data: { idtoken: idToken },
+        after: function (err) {
+          if (err) {
+            return
+          }
 
-        browserHistory.push('/')
+          browserHistory.push('/')
+        }
       }
-    }
+    })
   }
 }
 
@@ -107,6 +109,8 @@ export function requestStepUp ({ scope }) {
 export function tryAgain () {
   return function (dispatch, getState) {
     const { domain } = getState().transaction
+
+    dispatch(delTransactionState())
 
     return dispatch({
       [API]: {

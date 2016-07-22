@@ -1,5 +1,5 @@
 
-import { Router, Route, browserHistory } from 'react-router'
+import { Router, Route, Redirect, browserHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 import { Provider } from 'react-redux'
 import ReactDOM from 'react-dom'
@@ -33,7 +33,8 @@ ReactDOM.render(
       <Route path='/' component={User} />
       <Route path='/login' component={Login} />
       <Route path='/configuration' component={Configuration} />
-      <Route path='/step-up' component={StepUp} />
+      <Route path='/step-up/:scope' component={StepUp} />
+      <Redirect from="/step-up" to="/step-up/update%3Amfa-api" />
     </Router>
   </Provider>,
   document.getElementById('root')

@@ -6,11 +6,12 @@ import * as TransactionActions from '../../actions/transaction'
 import App from '../App'
 import style from './style.css'
 import LockWrapper from '../../components/LockWrapper'
+import { browserHistory } from 'react-router'
 
 class StepUp extends Component {
 
   componentDidMount() {
-    this.props.transactionActions.requestStepUp({ scope: 'update:mfa_settings' })
+    this.props.transactionActions.requestStepUp({ scope: this.props.params.scope })
   }
 
   handleAuthentication({ state, idToken }) {

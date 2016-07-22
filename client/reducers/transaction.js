@@ -27,14 +27,17 @@ export default handleActions({
 
   'start login' (state, action) {
     return { ...state,
-      loggingIn: true
+      loggingIn: true,
+      loggedIn: false,
+      stepup: {}
     }
   },
 
   'remove login' (state, action) {
     return { ...state,
       loggedIn: false,
-      loggingIn: false
+      loggingIn: false,
+      stepup: {}
     }
   },
 
