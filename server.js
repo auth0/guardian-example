@@ -7,17 +7,16 @@ const path = require('path')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const ensureApi2Token = require('./lib/middlewares/ensure_api2_token')
-const loadUser = require('./lib/middlewares/load_user')
-const loadUserEnrollments = require('./lib/middlewares/load_user_enrollments')
 const session = require('cookie-session')
 const fs = require('fs')
 
-const mfaRoutes = require('./api/mfa_routes')
-const stepUpRoutes = require('./api/step_up_routes')
+const stepUpRoutes = require('./api/step_up.routes')
+const loginRoutes = require('./api/login.routes')
+const mfaRoutes = require('./api/mfa.routes')
+const usersRoutes = require('./api/users.routes')
 
 const port = env['PORT'] || 3000
 
-var idTokenCheck = require('./lib/id_token_check')
 const template = fs.readFileSync(path.join(__dirname, 'public/index.html'), 'utf8')
   .replace('{AUTH0_DOMAIN}', env['AUTH0_DOMAIN'].replace('{tenant}', env['AUTH0_TENANT']))
   .replace('{AUTH0_CLIENT}', env['AUTH0_CLIENT'])
@@ -70,27 +69,10 @@ app.use(function (req, res, next) {
 
 app.use(ensureApi2Token)
 
-app.use(mfaRoutes())
+app.use(loginRoutes())
 app.use(stepUpRoutes())
-
-app.post('/api/login', function (req, res) {
-  res.cookie('id_token', req.body.idtoken, {
-    expires: new Date(Date.now() + 3600000),
-    httpOnly: !env.isDevelopment,
-    secure: !env.isDevelopment
-  })
-
-  res.status(200).end()
-})
-
-app.post('/api/logout', idTokenCheck, function (req, res) {
-  res.clearCookie('id_token')
-  res.status(200).end()
-})
-
-app.get('/api/users/me', idTokenCheck, loadUser, loadUserEnrollments(), function (req, res) {
-  res.status(200).json(req.pre.user)
-})
+app.use(mfaRoutes())
+app.use(usersRoutes())
 
 app.get('*', function (req, res) {
   //res.header("Content-Type", "text/html")
@@ -103,10 +85,6 @@ app.use(function (err, req, res, next) {
   }
 
   console.error(err, err.stack)
-
-  if (err.name === 'UnauthorizedError') {
-    res.status(401).send({ errorCode: 'invalid_token' })
-  }
 
   if (!err.isBoom) {
     return res.status(500).send({ errorCode: 'server_error' })

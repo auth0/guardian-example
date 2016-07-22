@@ -2,23 +2,28 @@ const express = require('express')
 const gmc = require('guardian-management-client')
 const asyncHandler = require('../lib/async_handler')
 const env = require('../lib/env')
-const stepupTokenCheck = require('../lib/stepup_token_check')
 const loadUser = require('../lib/middlewares/load_user')
 const loadUserEnrollments = require('../lib/middlewares/load_user_enrollments')
 const Boom = require('boom')
 const api2request = require('../lib/api2_request')
-const guard = require('express-jwt-permissions')({
-  requestProperty: 'stepup_token',
-  permissionsProperty: 'scope'
-})
+const tokenChecker = require('../lib/middlewares/token_checker')
+const authorization = require('../lib/middlewares/authorization')
+
+const apiTokenCheck = tokenChecker.api()
+const stepUpTokenCheck = tokenChecker.stepUp()
+const apiGuard = authorization.api()
+const stepUpGuard = authorization.stepUp()
 
 module.exports = function () {
   const app = express.Router()
 
-  app.use('/api/users/me/mfa', stepupTokenCheck, loadUser, loadUserEnrollments(), loadGuardianClient)
+  app.use('/api/users/me/mfa',
+    apiTokenCheck, stepUpTokenCheck,
+    loadUser, loadUserEnrollments(),
+    loadGuardianClient)
 
   app.delete('/api/users/me/mfa/enrollments/:id',
-    guard.check('update:mfa_settings'),
+    stepUpGuard.check('update:mfa_settings'),
     loadEnrollment,
     checkUserOwnerForEnrollment,
     asyncHandler(function (req) {
@@ -26,7 +31,7 @@ module.exports = function () {
     }))
 
   app.patch('/api/users/me/mfa',
-    guard.check('update:mfa_settings'),
+    stepUpGuard.check('update:mfa_settings'),
     function (req, res, next) {
       const payload = { disable_mfa: req.body.disable_mfa }
 

@@ -9,5 +9,8 @@ module.exports = {
   AUTH0_REGION: 'au|us|eu',
 
   COOKIE_SECRET: 'Secret to sign generated cookies DON\'T NOT COMMIT TO GIT REPO',
-  MY_API_SECRET: 'Secret to sign your own tokens DON\'T NOT COMMIT TO GIT REPO'
+  MY_API_SECRET: 'Secret to sign your own tokens DON\'T NOT COMMIT TO GIT REPO',
+
+  STEP_UP_TOKEN_EXPIRES_IN: '5m',
+  API_TOKEN_UP_EXPIRES_IN: '60m'
 }

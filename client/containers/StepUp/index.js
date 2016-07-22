@@ -5,30 +5,44 @@ import { connect } from 'react-redux'
 import * as TransactionActions from '../../actions/transaction'
 import App from '../App'
 import style from './style.css'
-
-class StepUpShower extends Component {
-
-  componentDidMount () {
-    this.props.initialize()
-  }
-
-  componentDidUpdate () {
-    this.props.initialize()
-  }
-
-  render () {
-    return (<div id='lock-step-up-container' ref='el'></div>)
-  }
-}
+import LockWrapper from '../../components/LockWrapper'
 
 class StepUp extends Component {
 
+  componentDidMount() {
+    this.props.transactionActions.requestStepUp({ scope: 'update:mfa_settings' })
+  }
+
+  handleAuthentication({ state, idToken }) {
+    this.props.transactionActions.acceptStepUp({
+      state,
+      stepUpidToken: idToken
+    })
+  }
+
   render () {
+    const containerId = `lock-step-up-container- + ${_.uniqueId()}`
+    const lockOptions = {
+      auth: {
+        params: {
+          state: this.props.stepup.transactionId,
+          nonce: this.props.stepup.nonce,
+          scope: 'openid nonce'
+        },
+        redirect: false
+      },
+      container: containerId
+    }
+
+    const showLock = this.props.stepup.transactionId && this.props.stepup.nonce;
+
     return (<App preload={false}>
       <div className='row'>
         <div className='col-md-4' ref='left'>
           <div className={style['lock-container']}>
-            <StepUpShower initialize={::this.props.transactionActions.stepUp} />
+            <div id={containerId}>
+              <LockWrapper options={lockOptions} handleAuthentication={::this.handleAuthentication} show={showLock}/>
+            </div>
           </div>
         </div>
         <div className='col-md-6'>
@@ -50,7 +64,13 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
+function mapStateToProps(state) {
+  return {
+    stepup: state.transaction.stepup
+  }
+};
+
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(StepUp)

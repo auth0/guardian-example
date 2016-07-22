@@ -46,7 +46,7 @@ export default store => next => action => {
 
   return request(config)
     .then((response) => {
-      if (after) { after(null, response) }
+      if (after) { after(null, response, store) }
 
       if (success) {
         store.dispatch(typeof success === 'string' ? { type: success, payload: transformResponse ? transformResponse(response) : response.body } : success)
@@ -55,9 +55,9 @@ export default store => next => action => {
       return null
     })
     .catch((err) => {
-      if (responseErrorHandler(err)) { return null }
+      if (responseErrorHandler(store, err)) { return null }
 
-      if (after) { after(err) }
+      if (after) { after(err, null, store) }
 
       store.dispatch({ type: error || 'global error', payload: err })
       return null

@@ -25,6 +25,7 @@ setup({
 })
 
 store.dispatch(TransactionActions.configureTransaction({ domain, clientId }))
+store.dispatch(TransactionActions.loadTransactionState())
 
 ReactDOM.render(
   <Provider store={store}>

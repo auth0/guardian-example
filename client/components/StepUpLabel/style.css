@@ -1,0 +1,25 @@
+.stepup-label {
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+.stepup-label i {
+  margin-right: 10px
+}
+
+.stepup-label-enabled {
+  background-color: #dff0d8;
+}
+
+.stepup-label-disabled {
+  background-color: rgb(210, 210, 210);
+  color: white
+}
+
+.stepup-label-title {
+  text-transform: uppercase
+}

@@ -6,6 +6,8 @@ import * as TransactionActions from '../../actions/transaction'
 import * as CurrentUserActions from '../../actions/current_user'
 import { Link } from 'react-router'
 import Loading from '../../components/Loading'
+import StepUpLabel from '../../components/StepUpLabel'
+import style from './style.css'
 
 class App extends Component {
   componentDidMount () {
@@ -31,7 +33,8 @@ class App extends Component {
           </div>
           <ul className='nav navbar-nav navbar-right'>
             <li><Link to=''><i className='glyphicon glyphicon-home'></i> Home</Link></li>
-            <li><Link to='/step-up'><i className='glyphicon glyphicon-cog'></i> MFA Configuration</Link></li>
+            <li><Link to='/configuration'><i className='glyphicon glyphicon-cog'></i> MFA Configuration</Link></li>
+            <li className={style['nav-badge']}><StepUpLabel scopes={this.props.stepupScopes} /></li>
           </ul>
         </div>
       </nav>
@@ -48,7 +51,8 @@ function mapStateToProps (state) {
     loading: state.transaction.loading,
     idToken: state.transaction.idToken,
     mfa: { disable_mfa: state.current_user.user_metadata.disable_mfa },
-    user: state.current_user
+    user: state.current_user,
+    stepupScopes: state.transaction.stepup.scopes
   }
 }
 

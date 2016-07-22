@@ -37,7 +37,7 @@ export default store => next => action => {
       store.dispatch({ type: success, payload: transformResponse ? transformResponse(reponse) : reponse.body })
     })
     .catch((err) => {
-      if (responseErrorHandler(err)) { return null }
+      if (responseErrorHandler(store, err)) { return null }
 
       if (revert) {
         store.dispatch(revert)

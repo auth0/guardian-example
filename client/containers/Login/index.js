@@ -3,14 +3,15 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as TransactionActions from '../../actions/transaction'
+import LockWrapper from '../../components/LockWrapper'
 
 class Login extends Component {
-  componentWillMount () {
-    this.props.transactionActions.acceptLogin()
+  handleAuthentication (authResult) {
+    this.props.transactionActions.acceptLogin(authResult)
   }
 
   render () {
-    return (<div></div>)
+    return (<LockWrapper handleAuthentication={::this.handleAuthentication} show={!this.props.loggedIn && !this.props.loggingIn}/>)
   }
 }
 
@@ -20,7 +21,14 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
+function mapStateToProps (state) {
+  return {
+    loggedIn: state.transaction.loggedIn,
+    loggingIn: state.transaction.loggingIn
+  }
+}
+
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(Login)

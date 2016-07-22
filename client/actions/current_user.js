@@ -69,7 +69,7 @@ export const unenrollAsync = function unenrollAsync ({ enrollmentId }) {
 
 export const enrollDevice = function enrollDevice () {
   return function (dispatch) {
-    lock().show(function (profile, idToken, accessCode) {
+    lock().show().on("authenticated", function() {
       return dispatch(readCurrentUser())
     })
   }
