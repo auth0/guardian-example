@@ -27519,7 +27519,7 @@ webpackJsonp([1],[
 	  return {
 	    loading: state.transaction.loading,
 	    idToken: state.transaction.idToken,
-	    mfa: { disable_mfa: state.current_user.user_metadata.disable_mfa },
+	    mfa: { use_mfa: state.current_user.user_metadata.use_mfa !== false },
 	    user: state.current_user,
 	    stepupScopes: state.transaction.stepup.scopes
 	  };
@@ -27597,10 +27597,10 @@ webpackJsonp([1],[
 	      }
 	    },
 	    data: {
-	      disable_mfa: !!payload
+	      use_mfa: !!payload
 	    },
 	    transformResponse: function transformResponse(response) {
-	      return response.body.disable_mfa;
+	      return response.body.use_mfa;
 	    }
 	  });
 	};
@@ -28773,12 +28773,12 @@ webpackJsonp([1],[
 	  }, {
 	    key: 'handleEnableMFA',
 	    value: function handleEnableMFA() {
-	      this.props.userActions.changeMFAStatus(false);
+	      this.props.userActions.changeMFAStatus(true);
 	    }
 	  }, {
 	    key: 'handleDisableMFA',
 	    value: function handleDisableMFA() {
-	      this.props.userActions.changeMFAStatus(true);
+	      this.props.userActions.changeMFAStatus(false);
 	    }
 	  }, {
 	    key: 'handleUnenroll',
@@ -28799,7 +28799,7 @@ webpackJsonp([1],[
 	        _App2.default,
 	        null,
 	        _react2.default.createElement(_MFAConfigurationPane2.default, {
-	          enabled: !this.props.disableMFA,
+	          enabled: this.props.use_mfa,
 	          enrollments: this.props.enrollments || [],
 	          handleEnableMFA: this.handleEnableMFA.bind(this),
 	          handleDisableMFA: this.handleDisableMFA.bind(this),
@@ -28814,7 +28814,7 @@ webpackJsonp([1],[
 
 	function mapStateToProps(state) {
 	  return {
-	    disableMFA: state.current_user.user_metadata.disable_mfa,
+	    use_mfa: state.current_user.user_metadata.use_mfa !== false,
 	    enrollments: state.current_user.guardian && state.current_user.guardian.enrollments || [],
 	    stepupScopes: state.transaction.stepup.scopes || []
 	  };
@@ -44058,14 +44058,14 @@ webpackJsonp([1],[
 
 	var initialState = {
 	  loading: false,
-	  user_metadata: { disable_mfa: false }
+	  user_metadata: { use_mfa: true }
 	};
 
 	exports.default = (0, _reduxActions.handleActions)({
 	  'change mfa status': function changeMfaStatus(state, action) {
 	    return (0, _extends3.default)({}, state, {
 	      user_metadata: (0, _extends3.default)({}, state.user_metadata, {
-	        disable_mfa: action.payload
+	        use_mfa: action.payload
 	      })
 	    });
 	  },
