@@ -33,7 +33,7 @@ module.exports = function () {
   app.patch('/api/users/me/mfa',
     stepUpGuard.check('update:mfa_settings'),
     function (req, res, next) {
-      const payload = { disable_mfa: req.body.disable_mfa }
+      const payload = { use_mfa: req.body.use_mfa }
 
       return api2request(req.pre.auth0Api2Token, 'PATCH', `users/${encodeURIComponent(req.pre.userId)}`, {
         user_metadata: payload

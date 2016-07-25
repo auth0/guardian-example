@@ -50,7 +50,7 @@ function mapStateToProps (state) {
   return {
     loading: state.transaction.loading,
     idToken: state.transaction.idToken,
-    mfa: { disable_mfa: state.current_user.user_metadata.disable_mfa },
+    mfa: { use_mfa: state.current_user.user_metadata.use_mfa !== false },
     user: state.current_user,
     stepupScopes: state.transaction.stepup.scopes
   }

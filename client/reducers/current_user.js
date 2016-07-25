@@ -4,7 +4,7 @@ import _ from 'lodash'
 
 const initialState = {
   loading: false,
-  user_metadata: { disable_mfa: false }
+  user_metadata: { use_mfa: true }
 }
 
 export default handleActions({
@@ -13,7 +13,7 @@ export default handleActions({
       ...state,
       user_metadata: {
         ...state.user_metadata,
-        disable_mfa: action.payload
+        use_mfa: action.payload
       }
     }
   },

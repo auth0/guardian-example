@@ -19,11 +19,11 @@ class Configuration extends Component {
   }
 
   handleEnableMFA () {
-    this.props.userActions.changeMFAStatus(false)
+    this.props.userActions.changeMFAStatus(true)
   }
 
   handleDisableMFA () {
-    this.props.userActions.changeMFAStatus(true)
+    this.props.userActions.changeMFAStatus(false)
   }
 
   handleUnenroll ({ enrollmentId }) {
@@ -37,7 +37,7 @@ class Configuration extends Component {
   render () {
     return (<App>
       <MFAConfigurationPane
-        enabled={!this.props.disableMFA}
+        enabled={this.props.use_mfa}
         enrollments={this.props.enrollments || []}
         handleEnableMFA={::this.handleEnableMFA}
         handleDisableMFA={::this.handleDisableMFA}
@@ -50,7 +50,7 @@ class Configuration extends Component {
 
 function mapStateToProps (state) {
   return {
-    disableMFA: state.current_user.user_metadata.disable_mfa,
+    use_mfa: state.current_user.user_metadata.use_mfa !== false,
     enrollments: state.current_user.guardian && state.current_user.guardian.enrollments || [],
     stepupScopes: state.transaction.stepup.scopes || []
   }

@@ -61,7 +61,7 @@
     "express-jwt": "^3.4.0",
     "express-jwt-permissions": "^0.2.2",
     "express-session": "^1.14.0",
-    "guardian-management-client": "file:./deps/guardian-management-client-1.0.0.tgz",
+    "guardian-management-client": "file:./deps/guardian-management-client-1.0.1.tgz",
     "jsonwebtoken": "^7.1.6",
     "jwt-decode": "^2.0.1",
     "lodash": "^4.13.1",

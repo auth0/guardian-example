@@ -41,10 +41,10 @@ export const changeMFAStatus = function changeMFAStatus (payload) {
         }
       },
       data: {
-        disable_mfa: !!payload
+        use_mfa: !!payload
       },
       transformResponse: function transformResponse (response) {
-        return response.body.disable_mfa
+        return response.body.use_mfa
       }
     }
   }

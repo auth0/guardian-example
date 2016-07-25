@@ -19,7 +19,7 @@ Activate Guardian an use the following multifactor rule
 
 ```javascript
 function (user, context, callback) {
-  if (user.user_metadata && user.user_metadata.disable_mfa){
+  if (user.user_metadata && user.user_metadata.use_mfa === false){
     return callback(null, user, context);
   }
 
@@ -27,8 +27,6 @@ function (user, context, callback) {
     provider: 'guardian', //required
     ignoreCookie: true, // optional. Force Auth0 MFA everytime this rule runs. Defaults to false. if accepted by users the cookie lasts for 30 days (this cannot be changed)
   };
-
-  user.nonce = context.request.query.nonce || context.request.body.nonce;
 
   return callback(null, user, context);
 }
