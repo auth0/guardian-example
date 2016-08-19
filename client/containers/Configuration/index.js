@@ -34,15 +34,21 @@ class Configuration extends Component {
     this.props.userActions.enrollDevice()
   }
 
+  handleRegenerateRecoveryCode (e) {
+    this.props.userActions.regenerateRecoveryCodeAsync()
+  }
+
   render () {
     return (<App>
       <MFAConfigurationPane
         enabled={this.props.use_mfa}
         enrollments={this.props.enrollments || []}
+        recoveryCode={this.props.recoveryCode}
         handleEnableMFA={::this.handleEnableMFA}
         handleDisableMFA={::this.handleDisableMFA}
         handleUnenroll={::this.handleUnenroll}
         handleEnrollment={::this.handleEnrollment}
+        handleRegenerateRecoveryCode={::this.handleRegenerateRecoveryCode}
       />
     </App>)
   }
@@ -52,6 +58,7 @@ function mapStateToProps (state) {
   return {
     use_mfa: state.current_user.user_metadata.use_mfa !== false,
     enrollments: state.current_user.guardian && state.current_user.guardian.enrollments || [],
+    recoveryCode: state.current_user.recoveryCode,
     stepupScopes: state.transaction.stepup.scopes || []
   }
 }
@@ -66,4 +73,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(Configuration)
-

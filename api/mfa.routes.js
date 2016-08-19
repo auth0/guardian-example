@@ -44,6 +44,22 @@ module.exports = function () {
       })
     })
 
+  app.post('/api/users/me/mfa/regenerate-recovery-code',
+    stepUpGuard.check('update:mfa_settings'),
+    function postRegenerateRecoveryCode(req, res, next) {
+      console.log('token in postRegenerateRecoveryCode', req.pre.auth0Api2Token)
+
+      api2request(
+        req.pre.auth0Api2Token, 'POST',
+        `/users/${encodeURIComponent(req.pre.userId)}/recovery-code-regeneration`, {},
+        (err, response) => {
+          if (err) next(err)
+          else res.status(200).send(response)
+        }
+      )
+    })
+
+
   return app
 }
 
@@ -73,4 +89,3 @@ function checkUserOwnerForEnrollment (req, res, next) {
 
   return next()
 }
-
