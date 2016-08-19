@@ -46,7 +46,6 @@ export default handleActions({
   },
 
   'receive mfa recovery code' (state, action) {
-    console.log('receive mfa recovery code', state, action)
     return {
       ...state,
       recoveryCode: action.payload,
