@@ -43,6 +43,8 @@
     "react-router-redux": "^4.0.0",
     "redux": "^3.3.1",
     "redux-actions": "^0.9.1",
+    "redux-promise": "^0.5.3",
+    "redux-thunk": "^2.1.0",
     "rucksack-css": "^0.8.5",
     "style-loader": "^0.13.0",
     "webpack": "^1.12.14",
@@ -68,8 +70,6 @@
     "moment": "^2.14.1",
     "ms": "^0.7.1",
     "randomstring": "^1.1.5",
-    "redux-promise": "^0.5.3",
-    "redux-thunk": "^2.1.0",
     "request": "^2.73.0",
     "standard": "^7.1.2",
     "superagent": "^2.0.0-alpha.3",
@@ -78,6 +78,10 @@
     "webpack-dev-middleware": "^1.6.1"
   },
   "standard": {
+    "ignore": [
+      "public/bundle.js",
+      "public/vendor.bundle.js"
+    ],
     "parser": "babel-eslint",
     "globals": [
       "confirm",

@@ -1,48 +1,49 @@
-import React, { Component } from 'react'
-import ReactDOM from 'react-dom';
+/* global confirm */
 
-export default class RecoveryCode extends Component {
+import React from 'react'
+import Code from './code'
 
-  handleRegenerateRecoveryCode (e) {
-    e.preventDefault()
-
+function confirmRegenerate(handleRegenerateRecoveryCode) {
+  return () => {
     if (confirm('Are you sure you want to regenerate the recovery code?')) {
-      this.props.handleRegenerateRecoveryCode({ })
+      handleRegenerateRecoveryCode()
     }
   }
+}
 
-  handleConfirmationChange(confirmed) {
-    this.dispatch(mfa.recoveryCodeSavedConfirmationChanged({ confirmed }));
-  }
+function displayRegenerateDiv(handleRegenerateRecoveryCode, enabled) {
+  return (<div>
+    <p>
+      The recovery code can be used to access your account in the event you lose
+      access to your device.
+    </p>
+    <p>If you generate a new recovery code the old one will stop working.</p>
+    <button
+      className='btn btn-danger pull-right' disabled={!enabled}
+      onClick={confirmRegenerate(handleRegenerateRecoveryCode)}
+    >Regenerate Recovery Code</button>
+  </div>)
+}
 
-  handleClick(e) {
-    e.preventDefault();
-    e.stopPropagation();
+function displayCode(recoveryCode) {
+  return (<div>
+    <p className='alert alert-info'>
+      Your new recovery code is: <Code recoveryCode={recoveryCode} />
+    </p>
+    <p className='alert alert-warning'>
+      Record this code, it will only be visible now and cannot be retrieved again.
+      No previous code can be used.
+    </p>
+  </div>)
+}
 
-    var element = ReactDOM.findDOMNode(this);
+export default function RecoveryCode({ recoveryCode, enabled, handleRegenerateRecoveryCode }) {
+  return recoveryCode
+    ? displayCode(recoveryCode)
+    : displayRegenerateDiv(handleRegenerateRecoveryCode, enabled)
+}
 
-    if (element.setSelectionRange) {
-      element.setSelectionRange(0, element.value.length)
-    }
-  }
-
-  render() {
-    return this.props.recoveryCode
-      ? <div>
-        <p className='alert alert-info'>Your new recovery code is: {this._formatCode(this.props.recoveryCode)}</p>
-        <p className='alert alert-warning'>Record this code, it will only be visible now and cannot be retrieved again.  No previous code can be used.</p>
-      </div>
-      : <div>
-        <p>The recovery code can be used to access your account in the event you lose access to your device.</p>
-        <p>If you generate a new recovery code the old one will stop working.</p>
-        <button className='btn btn-danger pull-right' disabled={!this.props.enabled}
-          onClick={::this.handleRegenerateRecoveryCode}>Regenerate Recovery Code</button>
-      </div>
-  }
-
-  _formatCode(code) {
-    if (!code) return ''
-
-    return code.match(/(.{1,4})/g).join(' - ')
-  }
+RecoveryCode.propTypes = {
+  handleRegenerateRecoveryCode: React.PropTypes.func.isRequired,
+  recoveryCode: React.PropTypes.string,
 }
