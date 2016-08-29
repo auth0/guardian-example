@@ -33,5 +33,6 @@
     "arrow-body-style": 0,
     "no-use-before-define": ["error", { "functions": false, "classes": true }],
     "no-alert": "off",
+    "import/no-extraneous-dependencies": "off",
   }
 }

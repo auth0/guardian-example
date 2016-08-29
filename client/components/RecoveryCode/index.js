@@ -3,8 +3,8 @@
 import React from 'react'
 import Code from './code'
 
-function confirmRegenerate(handleRegenerateRecoveryCode) {
-  return () => {
+function confirmRegeneration(handleRegenerateRecoveryCode) {
+  return function confirmAndRegenerate() {
     if (confirm('Are you sure you want to regenerate the recovery code?')) {
       handleRegenerateRecoveryCode()
     }
@@ -20,7 +20,7 @@ function displayRegenerateDiv(handleRegenerateRecoveryCode, enabled) {
     <p>If you generate a new recovery code the old one will stop working.</p>
     <button
       className='btn btn-danger pull-right' disabled={!enabled}
-      onClick={confirmRegenerate(handleRegenerateRecoveryCode)}
+      onClick={confirmRegeneration(handleRegenerateRecoveryCode)}
     >Regenerate Recovery Code</button>
   </div>)
 }
