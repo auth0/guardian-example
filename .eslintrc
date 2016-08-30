@@ -6,6 +6,10 @@
       "jsx": true
     }
   },
+  "env": {
+    "browser": true,
+    "node": true
+  },
   "rules": {
     "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }],
     "react/prefer-stateless-function": "off",

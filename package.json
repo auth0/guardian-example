@@ -82,7 +82,10 @@
   },
   "jest": {
     "automock": false,
-    "testRegex": "client\\/.*\\.jest\\.js$"
+    "testRegex": "client\\/.*\\.jest\\.js$",
+    "moduleNameMapper": {
+      "^.+\\.(css|less)$": "<rootDir>/test/styleMock.js"
+    }
   },
   "standard": {
     "ignore": [

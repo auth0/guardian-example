@@ -1,0 +1,9 @@
+.new-recovery-code {
+  background: 'transparent';
+  border: 'none';
+  color: 'black';
+  display: 'inline-block';
+  lineHeight: '116%';
+  textAlign: 'center';
+  width: '25em';
+}

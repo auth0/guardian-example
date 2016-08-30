@@ -6,7 +6,7 @@ import MFAEnablement from '../MFAEnablement'
 import RecoveryCode from '../RecoveryCode'
 import style from './style.css'
 
-export default class Enrollment extends Component {
+export default class MFAConfigurationPane extends Component {
 
   handleUnenroll (e) {
     e.preventDefault()

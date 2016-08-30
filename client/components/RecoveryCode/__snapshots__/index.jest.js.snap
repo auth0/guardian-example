@@ -21,19 +21,9 @@ exports[`RecoveryCode displays new code 1`] = `
     className="alert alert-info">
     Your new recovery code is: 
     <input
+      className={undefined}
       onClick={[Function handleClick]}
-      readOnly="true"
-      style={
-        Object {
-          "background": "transparent",
-          "border": "none",
-          "color": "black",
-          "display": "inline-block",
-          "lineHeight": "116%",
-          "textAlign": "center",
-          "width": "25em"
-        }
-      }
+      readOnly={true}
       value="ABCD - EFGH - IJKL - MNOP - QRST - UVWX" />
   </p>
   <p

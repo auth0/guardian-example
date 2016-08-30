@@ -1,5 +1,3 @@
-/* global confirm */
-
 import React from 'react'
 import Code from './code'
 

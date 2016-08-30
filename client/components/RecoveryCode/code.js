@@ -1,16 +1,7 @@
 import React from 'react'
+import style from './style.css'
 
 const formatCode = code => code.match(/(.{1,4})/g).join(' - ')
-
-const style = {
-  background: 'transparent',
-  border: 'none',
-  color: 'black',
-  display: 'inline-block',
-  lineHeight: '116%',
-  textAlign: 'center',
-  width: '25em',
-}
 
 function handleClick(event) {
   const element = event.target
@@ -20,12 +11,14 @@ function handleClick(event) {
 }
 
 export default function Code({ recoveryCode }) {
-  return (<input
-    style={style}
-    readOnly='true'
-    onClick={handleClick}
-    value={formatCode(recoveryCode)}
-  />)
+  return (
+    <input
+      className={style['new-recovery-code']}
+      readOnly
+      onClick={handleClick}
+      value={formatCode(recoveryCode)}
+    />
+  )
 }
 
 Code.propTypes = {
