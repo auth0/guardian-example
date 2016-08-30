@@ -30,7 +30,7 @@ class StepUp extends Component {
           nonce: this.props.stepup.nonce,
           scope: 'openid nonce',
         },
-        redirect: true
+        redirect: false
       },
       container: containerId
     }
