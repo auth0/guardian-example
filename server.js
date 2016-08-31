@@ -74,8 +74,8 @@ app.use(stepUpRoutes())
 app.use(mfaRoutes())
 app.use(usersRoutes())
 
-app.get('*', function (req, res) {
-  //res.header("Content-Type", "text/html")
+app.get('*', function getAsterisk(req, res) {
+  // res.header("Content-Type", "text/html")
   res.status(200).send(template)
 })
 
@@ -84,7 +84,7 @@ app.use(function (err, req, res, next) {
     return next()
   }
 
-  console.error(err, err.stack)
+  console.error('Error on', req.url, err, err.stack)
 
   if (!err.isBoom) {
     return res.status(500).send({ errorCode: 'server_error' })

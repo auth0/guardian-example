@@ -4,7 +4,7 @@ import _ from 'lodash'
 
 const initialState = {
   loading: false,
-  user_metadata: { use_mfa: true }
+  user_metadata: { use_mfa: true },
 }
 
 export default handleActions({
@@ -43,5 +43,12 @@ export default handleActions({
         enrollments: _.reject(state.guardian.enrollments, (e) => e.id === action.payload.enrollmentId)
       }
     }
-  }
+  },
+
+  'receive mfa recovery code' (state, action) {
+    return {
+      ...state,
+      recoveryCode: action.payload,
+    }
+  },
 }, initialState)

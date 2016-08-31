@@ -7,7 +7,11 @@ export default class EnrollmentList extends Component {
   render () {
     const els = this.props.enrollments.map((enrollment) => {
       return (<li className='col-md-6 well well-sm' key={enrollment.id}>
-        <Enrollment enrollment={enrollment} handleUnenroll={this.props.handleUnenroll} enabled={this.props.enabled} />
+        <Enrollment
+          enrollment={enrollment}
+          handleUnenroll={this.props.handleUnenroll}
+          enabled={this.props.enabled}
+        />
       </li>)
     })
 

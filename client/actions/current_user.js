@@ -67,6 +67,23 @@ export const unenrollAsync = function unenrollAsync ({ enrollmentId }) {
   }
 }
 
+export const regenerateRecoveryCodeAsync = function regenerateRecoveryCodeAsync () {
+  return {
+    [API]: {
+      endpoint: function getEndpoint () {
+        return 'users/me/mfa/regenerate-recovery-code'
+      },
+      method: 'POST',
+      types: {
+        success: 'receive mfa recovery code',
+      },
+      transformResponse: function transformResponse (response) {
+        return response.body.recovery_code
+      },
+    },
+  }
+}
+
 export const enrollDevice = function enrollDevice () {
   return function (dispatch) {
     lock().show().on("authenticated", function() {

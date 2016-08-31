@@ -1,0 +1,34 @@
+exports[`RecoveryCode displays button to regenerate 1`] = `
+<div>
+  <p>
+    The recovery code can be used to access your account in the event you lose access to your device.
+  </p>
+  <p>
+    If you generate a new recovery code the old one will stop working.
+  </p>
+  <button
+    className="btn btn-danger pull-right"
+    disabled={false}
+    onClick={[Function confirmAndRegenerate]}>
+    Regenerate Recovery Code
+  </button>
+</div>
+`;
+
+exports[`RecoveryCode displays new code 1`] = `
+<div>
+  <p
+    className="alert alert-info">
+    Your new recovery code is: 
+    <input
+      className={undefined}
+      onClick={[Function handleClick]}
+      readOnly={true}
+      value="ABCD - EFGH - IJKL - MNOP - QRST - UVWX" />
+  </p>
+  <p
+    className="alert alert-warning">
+    Record this code, it will only be visible now and cannot be retrieved again. No previous code can be used.
+  </p>
+</div>
+`;

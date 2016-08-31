@@ -11,7 +11,6 @@ const authorization = require('../lib/middlewares/authorization')
 
 const apiTokenCheck = tokenChecker.api()
 const stepUpTokenCheck = tokenChecker.stepUp()
-const apiGuard = authorization.api()
 const stepUpGuard = authorization.stepUp()
 
 module.exports = function () {
@@ -44,6 +43,20 @@ module.exports = function () {
       })
     })
 
+  app.post('/api/users/me/mfa/regenerate-recovery-code',
+    stepUpGuard.check('update:mfa_settings'),
+    function postRegenerateRecoveryCode(req, res, next) {
+      api2request(
+        req.pre.auth0Api2Token, 'POST',
+        `/users/${encodeURIComponent(req.pre.userId)}/recovery-code-regeneration`, {},
+        (err, response) => {
+          if (err) next(err)
+          else res.status(200).send(response)
+        }
+      )
+    })
+
+
   return app
 }
 
@@ -73,4 +86,3 @@ function checkUserOwnerForEnrollment (req, res, next) {
 
   return next()
 }
-

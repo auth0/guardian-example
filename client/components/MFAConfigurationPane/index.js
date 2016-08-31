@@ -6,7 +6,7 @@ import MFAEnablement from '../MFAEnablement'
 import RecoveryCode from '../RecoveryCode'
 import style from './style.css'
 
-export default class Enrollment extends Component {
+export default class MFAConfigurationPane extends Component {
 
   handleUnenroll (e) {
     e.preventDefault()
@@ -15,10 +15,6 @@ export default class Enrollment extends Component {
   render () {
     const mainEnrollment = (this.props.enrollments || [])[0]
 
-    // <hr className={style.separation} />
-    // <SectionLine title='Recovery code'>
-    //   <RecoveryCode enrollment={mainEnrollment} enabled={this.props.enabled} />
-    // </SectionLine>
     return (<div>
       <div className='row'>
         <div className='col-md-12'>
@@ -38,7 +34,20 @@ export default class Enrollment extends Component {
         <MFAEnablement enabled={this.props.enabled} handleDisableMFA={::this.props.handleDisableMFA} handleEnableMFA={::this.props.handleEnableMFA} />
         <hr className={style.separation} />
         <SectionLine title='Enrollments'>
-          <EnrollmentList enrollments={this.props.enrollments || []} enabled={this.props.enabled} handleUnenroll={this.props.handleUnenroll} handleEnrollment={this.props.handleEnrollment} />
+          <EnrollmentList
+            enrollments={this.props.enrollments || []}
+            enabled={this.props.enabled}
+            handleUnenroll={this.props.handleUnenroll}
+            handleEnrollment={this.props.handleEnrollment}
+          />
+        </SectionLine>
+        <hr className={style.separation} />
+        <SectionLine title='Recovery code'>
+          <RecoveryCode
+            enabled={this.props.enabled}
+            recoveryCode={this.props.recoveryCode}
+            handleRegenerateRecoveryCode={this.props.handleRegenerateRecoveryCode}
+          />
         </SectionLine>
         <hr className={style.separation} />
         <SectionLine title='Delivery options'>
