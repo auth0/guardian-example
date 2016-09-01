@@ -29,6 +29,7 @@ class StepUp extends Component {
           state: this.props.stepup.transactionId,
           nonce: this.props.stepup.nonce,
           scope: 'openid nonce',
+          prompt: 'login',
         },
         redirect: false
       },
