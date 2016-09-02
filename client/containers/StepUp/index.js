@@ -29,7 +29,7 @@ class StepUp extends Component {
           state: this.props.stepup.transactionId,
           nonce: this.props.stepup.nonce,
           scope: 'openid nonce',
-          prompt: 'login',
+          acr_values: 'http://schemas.openid.net/pape/policies/2007/06/multi-factor',
         },
         redirect: false
       },
