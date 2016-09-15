@@ -2,6 +2,7 @@ const express = require('express')
 const gmc = require('guardian-management-client')
 const asyncHandler = require('../lib/async_handler')
 const env = require('../lib/env')
+const loadClient = require('../lib/middlewares/load_client')
 const loadUser = require('../lib/middlewares/load_user')
 const loadUserEnrollments = require('../lib/middlewares/load_user_enrollments')
 const Boom = require('boom')
@@ -18,6 +19,7 @@ module.exports = function () {
 
   app.use('/api/users/me/mfa',
     apiTokenCheck, stepUpTokenCheck,
+    loadClient,
     loadUser, loadUserEnrollments());
 
   app.delete('/api/users/me/mfa/enrollments/:id',
