@@ -1,6 +1,7 @@
 const express = require('express')
 const asyncHandler = require('../lib/async_handler')
 const loadUser = require('../lib/middlewares/load_user')
+const loadClient = require('../lib/middlewares/load_client')
 const loadUserEnrollments = require('../lib/middlewares/load_user_enrollments')
 const tokenChecker = require('../lib/middlewares/token_checker')
 const authorization = require('../lib/middlewares/authorization')
@@ -14,6 +15,7 @@ module.exports = function () {
   app.get('/api/users/me',
     apiTokenCheck,
     apiGuard.check('read:current_user'),
+    loadClient,
     loadUser,
     loadUserEnrollments(),
     asyncHandler(function (req, res) {
