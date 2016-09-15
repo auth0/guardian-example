@@ -18,8 +18,7 @@ module.exports = function () {
 
   app.use('/api/users/me/mfa',
     apiTokenCheck, stepUpTokenCheck,
-    loadUser, loadUserEnrollments(),
-    loadGuardianClient)
+    loadUser, loadUserEnrollments());
 
   app.delete('/api/users/me/mfa/enrollments/:id',
     stepUpGuard.check('update:mfa_settings'),
@@ -31,18 +30,16 @@ module.exports = function () {
 
   app.patch('/api/users/me/mfa',
     stepUpGuard.check('update:mfa_settings'),
-    function (req, res, next) {
-      const payload = { use_mfa: req.body.use_mfa }
-
-      return api2request(req.pre.auth0Api2Token, 'PATCH', `users/${encodeURIComponent(req.pre.userId)}`, {
-        user_metadata: payload
-      }, (err) => {
-        if (err) { return next(err) }
-
-        res.status(200).send(payload)
-      })
-    })
-
+    loadUser,
+    asyncHandler(function (req) {
+      if(req.body.use_mfa){
+        req.pre.user.enabledMFA()
+      }else{
+        req.pre.user.disableMFA()
+      }
+      return req.pre.user.update().return({ code: 200 });
+    }))
+    
   app.post('/api/users/me/mfa/regenerate-recovery-code',
     stepUpGuard.check('update:mfa_settings'),
     function postRegenerateRecoveryCode(req, res, next) {
@@ -60,18 +57,6 @@ module.exports = function () {
   return app
 }
 
-function loadGuardianClient (req, res, next) {
-  req.pre.gClient = gmc.configure({
-    client: {
-      token: req.pre.auth0Api2Token,
-      region: env['AUTH0_REGION'],
-      tenant: env['AUTH0_TENANT']
-    }
-  })
-
-  next()
-}
-
 function loadEnrollment (req, res, next) {
   req.pre.gClient.enrollment.create(req.params.id)
     .fetch()
@@ -80,7 +65,7 @@ function loadEnrollment (req, res, next) {
 }
 
 function checkUserOwnerForEnrollment (req, res, next) {
-  if (!req.pre.user.guardian.enrollments.find((e) => e.id === req.params.id)) {
+  if (!req.pre.user.attrs().guardian.enrollments.find((e) => e.id === req.params.id)) {
     return next(Boom.notFound())
   }
 
