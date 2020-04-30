@@ -7,7 +7,9 @@
     "start": "node server",
     "build": "NODE_ENV=production webpack --progress --colors",
     "test": "jest",
-    "preversion": "npm run build && git add . && git commit -m \"Add build\""
+    "preversion": "npm run build && git add . && git commit -m \"Add build\"",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -78,7 +80,8 @@
     "superagent": "^2.0.0-alpha.3",
     "superagent-promise": "^1.1.0",
     "url-join": "^1.1.0",
-    "webpack-dev-middleware": "^1.6.1"
+    "webpack-dev-middleware": "^1.6.1",
+    "snyk": "^1.316.1"
   },
   "jest": {
     "automock": false,
@@ -97,5 +100,6 @@
       "confirm",
       "Auth0Lock"
     ]
-  }
+  },
+  "snyk": true
 }
