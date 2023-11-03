@@ -56,7 +56,7 @@
     "webpack-hot-middleware": "^2.12.1"
   },
   "dependencies": {
-    "auth0-lock": "^10.0.0",
+    "auth0-lock": "^11.33.0",
     "bluebird": "^3.4.0",
     "body-parser": "^1.15.2",
     "boom": "^3.2.2",
