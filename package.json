@@ -7,7 +7,9 @@
     "start": "node server",
     "build": "NODE_ENV=production webpack --progress --colors",
     "test": "jest",
-    "preversion": "npm run build && git add . && git commit -m \"Add build\""
+    "preversion": "npm run build && git add . && git commit -m \"Add build\"",
+    "prepublish": "npm run snyk-protect",
+    "snyk-protect": "snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -56,14 +58,14 @@
     "webpack-hot-middleware": "^2.12.1"
   },
   "dependencies": {
-    "auth0-lock": "^10.0.0",
+    "auth0-lock": "^11.33.0",
     "bluebird": "^3.4.0",
     "body-parser": "^1.15.2",
     "boom": "^3.2.2",
     "cookie-parser": "^1.4.3",
     "cookie-session": "^2.0.0-alpha.1",
     "express": "^4.14.0",
-    "express-jwt": "^3.4.0",
+    "express-jwt": "^8.0.0",
     "express-jwt-permissions": "^0.2.2",
     "express-session": "^1.14.0",
     "guardian-management-client": "auth0/guardian-management-client",
@@ -71,14 +73,15 @@
     "jwt-decode": "^2.0.1",
     "lodash": "^4.13.1",
     "moment": "^2.14.1",
-    "ms": "^0.7.1",
+    "ms": "^2.0.0",
     "randomstring": "^1.1.5",
     "request": "^2.73.0",
-    "standard": "^7.1.2",
-    "superagent": "^2.0.0-alpha.3",
+    "standard": "^11.0.0",
+    "superagent": "^3.8.1",
     "superagent-promise": "^1.1.0",
     "url-join": "^1.1.0",
-    "webpack-dev-middleware": "^1.6.1"
+    "webpack-dev-middleware": "^1.6.1",
+    "@snyk/protect": "latest"
   },
   "jest": {
     "automock": false,
@@ -97,5 +100,6 @@
       "confirm",
       "Auth0Lock"
     ]
-  }
+  },
+  "snyk": true
 }
