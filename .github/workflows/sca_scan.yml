@@ -8,6 +8,9 @@ jobs:
   snyk-cli:
     uses: auth0/devsecops-tooling/.github/workflows/sca-scan.yml@main
     with:
-      pre-scan-commands: "npm install --legacy-peer-deps --package-lock-only --ignore-scripts || true"
+      pre-scan-commands: |
+        sed -i '/"guardian-management-client"/d' package.json
+        npm install --legacy-peer-deps --package-lock-only --ignore-scripts
+        git checkout package.json
       additional-arguments: "--skip-unresolved"
     secrets: inherit
