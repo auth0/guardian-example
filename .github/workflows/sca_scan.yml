@@ -7,4 +7,6 @@ on:
 jobs:
   snyk-cli:
     uses: auth0/devsecops-tooling/.github/workflows/sca-scan.yml@main
+    with:
+      pre-scan-commands: "npm install --legacy-peer-deps"
     secrets: inherit
