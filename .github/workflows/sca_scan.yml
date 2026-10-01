@@ -8,8 +8,5 @@ jobs:
   snyk-cli:
     uses: auth0/devsecops-tooling/.github/workflows/sca-scan.yml@main
     with:
-      pre-scan-commands: |
-        git config --global url."https://x-access-token:${GITHUB_TOKEN}@github.com/".insteadOf "git@github.com:"
-        git config --global url."https://x-access-token:${GITHUB_TOKEN}@github.com/".insteadOf "ssh://git@github.com/"
-        npm install --legacy-peer-deps
+      additional-arguments: "--skip-unresolved"
     secrets: inherit
