@@ -75,7 +75,7 @@
     "randomstring": "^1.1.5",
     "request": "^2.73.0",
     "standard": "^7.1.2",
-    "superagent": "^2.0.0-alpha.3",
+    "superagent": "^10.2.2",
     "superagent-promise": "^1.1.0",
     "url-join": "^1.1.0",
     "webpack-dev-middleware": "^1.6.1"
