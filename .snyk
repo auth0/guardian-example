@@ -1,0 +1,13 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.14.1
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  'npm:hoek:20180212':
+    - guardian-management-client > jsonwebtoken > joi > hoek:
+        patched: '2020-05-25T21:18:18.774Z'
+    - guardian-management-client > jsonwebtoken > joi > topo > hoek:
+        patched: '2020-05-25T21:18:18.774Z'
+  SNYK-JS-LODASH-567746:
+    - guardian-management-client > request-promise > lodash:
+        patched: '2020-05-25T21:18:18.774Z'
