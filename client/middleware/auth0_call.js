@@ -1,10 +1,6 @@
-import Promise from 'bluebird'
-import superagentPromise from 'superagent-promise'
 import superagent from 'superagent'
 import decode from 'jwt-decode'
 import responseErrorHandler from '../helpers/response_error_handler'
-
-const agent = superagentPromise(superagent, Promise)
 
 export const AUTH0 = Symbol('Call Auth0 API')
 
@@ -53,9 +49,8 @@ function request ({ getState, method, endpoint, domain, idToken, data }) {
     : endpoint
   const url = `https://${domain}/api/v2/${actualEndpoint}`
 
-  return agent((method || 'get').toUpperCase(), url)
+  return superagent((method || 'get').toUpperCase(), url)
     .set('Content-Type', 'application/json')
     .set('Authorization', `Bearer ${idToken}`)
     .send(data)
-    .end()
 }
