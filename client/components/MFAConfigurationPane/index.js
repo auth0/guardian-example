@@ -31,7 +31,7 @@ export default class MFAConfigurationPane extends Component {
         </div>
       </div>
       <div className='col-md-12'>
-        <MFAEnablement enabled={this.props.enabled} handleDisableMFA={::this.props.handleDisableMFA} handleEnableMFA={::this.props.handleEnableMFA} />
+        <MFAEnablement enabled={this.props.enabled} handleDisableMFA={this.props.handleDisableMFA.bind(this)} handleEnableMFA={this.props.handleEnableMFA.bind(this)} />
         <hr className={style.separation} />
         <SectionLine title='Enrollments'>
           <EnrollmentList

@@ -20,7 +20,7 @@ export default class LockWrapper extends Component {
       if (!this.lock) {
         this.lock = lock(this.props.options)
 
-        this.lock.on('authenticated', ::this.handleAuthentication)
+        this.lock.on('authenticated', this.handleAuthentication.bind(this))
       }
 
       this.lock.show()

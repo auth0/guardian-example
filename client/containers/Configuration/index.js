@@ -44,11 +44,11 @@ class Configuration extends Component {
         enabled={this.props.use_mfa}
         enrollments={this.props.enrollments || []}
         recoveryCode={this.props.recoveryCode}
-        handleEnableMFA={::this.handleEnableMFA}
-        handleDisableMFA={::this.handleDisableMFA}
-        handleUnenroll={::this.handleUnenroll}
-        handleEnrollment={::this.handleEnrollment}
-        handleRegenerateRecoveryCode={::this.handleRegenerateRecoveryCode}
+        handleEnableMFA={this.handleEnableMFA.bind(this)}
+        handleDisableMFA={this.handleDisableMFA.bind(this)}
+        handleUnenroll={this.handleUnenroll.bind(this)}
+        handleEnrollment={this.handleEnrollment.bind(this)}
+        handleRegenerateRecoveryCode={this.handleRegenerateRecoveryCode.bind(this)}
       />
     </App>)
   }

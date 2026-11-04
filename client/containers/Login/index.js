@@ -11,7 +11,7 @@ class Login extends Component {
   }
 
   render () {
-    return (<LockWrapper handleAuthentication={::this.handleAuthentication} show={!this.props.loggedIn && !this.props.loggingIn}/>)
+    return (<LockWrapper handleAuthentication={this.handleAuthentication.bind(this)} show={!this.props.loggedIn && !this.props.loggingIn}/>)
   }
 }
 

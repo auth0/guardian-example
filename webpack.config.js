@@ -1,71 +1,66 @@
-var rucksack = require('rucksack-css')
-var webpack = require('webpack')
+var autoprefixer = require('autoprefixer')
 var path = require('path')
 
+var isProduction = process.env.NODE_ENV === 'production'
+
 module.exports = {
+  mode: isProduction ? 'production' : 'development',
   context: path.join(__dirname, './client'),
-  entry: {
-    jsx: './index.js',
-    html: '../public/index.html',
-    vendor: [
-      'react',
-      'react-dom',
-      'react-redux',
-      'react-router',
-      'react-router-redux',
-      'redux'
-    ]
-  },
+  entry: './index.js',
   output: {
     path: path.join(__dirname, './public'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    publicPath: '/'
   },
   module: {
-    loaders: [
-      {
-        test: /\.html$/,
-        loader: 'file?name=[name].[ext]'
-      },
+    rules: [
       {
         test: /\.css$/,
         include: /client/,
-        loaders: [
+        use: [
           'style-loader',
-          'css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
-          'postcss-loader'
+          {
+            loader: 'css-loader',
+            options: {
+              modules: { localIdentName: '[name]__[local]___[hash:base64:5]' },
+              sourceMap: true,
+              importLoaders: 1
+            }
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              postcssOptions: { plugins: [autoprefixer] }
+            }
+          }
         ]
       },
       {
         test: /\.css$/,
         exclude: /client/,
-        loader: 'style!css'
+        use: ['style-loader', 'css-loader']
       },
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        loaders: [
-          'react-hot',
-          'babel-loader'
-        ]
+        use: 'babel-loader'
       }
     ]
   },
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: ['.js', '.jsx']
   },
-  postcss: [
-    rucksack({
-      autoprefixer: true
-    })
-  ],
-  plugins: [
-    new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.bundle.js'),
-    new webpack.DefinePlugin({
-      'process.env': { NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development') }
-    })
-  ],
-  devServer: {
-    contentBase: './client',
-    hot: true
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/](react|react-dom|react-redux|react-router|react-router-redux|redux)[\\/]/,
+          name: 'vendor',
+          filename: 'vendor.bundle.js',
+          chunks: 'all',
+          enforce: true
+        }
+      }
+    }
   }
 }

@@ -22,7 +22,7 @@ export default class Enrollment extends Component {
         {enrollment.last_auth && <p><b>Last auth: </b><span>{moment(enrollment.last_auth).format('lll')}</span></p>}
       </div>
       <div>
-        <button className='btn btn-danger pull-right' disabled={!this.props.enabled} onClick={::this.handleUnenroll}>Unenroll</button>
+        <button className='btn btn-danger pull-right' disabled={!this.props.enabled} onClick={this.handleUnenroll.bind(this)}>Unenroll</button>
       </div>
     </div>)
   }

@@ -43,7 +43,7 @@ class StepUp extends Component {
         <div className='col-md-4' ref='left'>
           <div className={style['lock-container']}>
             <div id={containerId}>
-              <LockWrapper options={lockOptions} handleAuthentication={::this.handleAuthentication} show={showLock}/>
+              <LockWrapper options={lockOptions} handleAuthentication={this.handleAuthentication.bind(this)} show={showLock}/>
             </div>
           </div>
         </div>

@@ -29,7 +29,7 @@ class App extends Component {
             Guardian Tester
           </div>
           <div className='navbar-left navbar-form'>
-            <a className='btn btn-danger' onClick={::this.handleLogout}>Try Again</a>
+            <a className='btn btn-danger' onClick={this.handleLogout.bind(this)}>Try Again</a>
           </div>
           <ul className='nav navbar-nav navbar-right'>
             <li><Link to=''><i className='glyphicon glyphicon-home'></i> Home</Link></li>

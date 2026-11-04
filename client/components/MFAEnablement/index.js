@@ -27,8 +27,8 @@ export default class MFAEnablement extends Component {
           </span>
           <div className='pull-right'>
             {this.props.enabled
-              ? <button className='btn btn-danger' onClick={::this.handleDisableMFA}>Disable Multifactor Authenticator</button>
-              : <button className='btn btn-success' onClick={::this.handleEnableMFA}>Enable Multifactor Authenticator</button>
+              ? <button className='btn btn-danger' onClick={this.handleDisableMFA.bind(this)}>Disable Multifactor Authenticator</button>
+              : <button className='btn btn-success' onClick={this.handleEnableMFA.bind(this)}>Enable Multifactor Authenticator</button>
             }
           </div>
         </div>
