@@ -74,8 +74,8 @@
     "ms": "^0.7.1",
     "randomstring": "^1.1.5",
     "request": "^2.73.0",
-    "standard": "^7.1.2",
-    "superagent": "^2.0.0-alpha.3",
+    "standard": "^11.0.0",
+    "superagent": "^3.6.1",
     "superagent-promise": "^1.1.0",
     "url-join": "^1.1.0",
     "webpack-dev-middleware": "^1.6.1"
