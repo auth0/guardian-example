@@ -1,11 +1,7 @@
-import Promise from 'bluebird'
-import superagentPromise from 'superagent-promise'
 import superagent from 'superagent'
 import decode from 'jwt-decode'
 import responseErrorHandler from '../helpers/response_error_handler'
 import _ from 'lodash'
-
-const agent = superagentPromise(superagent, Promise)
 
 export const API = Symbol('Call Example API')
 
@@ -71,7 +67,7 @@ function request ({ getState, method, endpoint, domain, idToken, data, headers, 
     : endpoint
   const url = `/api/${actualEndpoint}`
 
-  const r = agent(method.toUpperCase(), url).set('Content-Type', 'application/json')
+  const r = superagent(method.toUpperCase(), url).set('Content-Type', 'application/json')
 
   _.forEach(headers, (value, key) => r.set(key, value))
 
@@ -79,5 +75,5 @@ function request ({ getState, method, endpoint, domain, idToken, data, headers, 
     r.set('Authorization', `Bearer ${auth.bearer}`)
   }
 
-  return r.send(data).end()
+  return r.send(data)
 }
